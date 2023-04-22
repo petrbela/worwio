@@ -3,7 +3,6 @@ import React, { useState, ChangeEvent, FormEvent } from "react";
 
 function Index() {
   const [videoUrl, setVideoUrl] = useState<string>("");
-  const [targetLanguage, setTargetLanguage] = useState<string>("");
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -12,10 +11,6 @@ function Index() {
 
   const handleVideoUrlChange = (e: ChangeEvent<HTMLInputElement>) => {
     setVideoUrl(e.target.value);
-  };
-
-  const handleTargetLanguageChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    setTargetLanguage(e.target.value);
   };
 
   return (
@@ -43,27 +38,7 @@ function Index() {
               className="mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             />
           </div>
-          <div>
-            <label
-              htmlFor="target-language"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Target Language
-            </label>
-            <select
-              id="target-language"
-              value={targetLanguage}
-              onChange={handleTargetLanguageChange}
-              className="mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-            >
-              <option value="">Select a language</option>
-              <option value="en">English</option>
-              <option value="es">Spanish</option>
-              <option value="fr">French</option>
-              <option value="cs">Czech</option>
-              {/* Add more languages as needed */}
-            </select>
-          </div>
+
           <button
             onClick={() => Router.push("/video")}
             type="submit"

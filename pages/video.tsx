@@ -49,43 +49,36 @@ const VideoPage = () => {
       }
     };
 
-    const player = playerRef.current as any;
-
-    player.on("timeupdate", handleVideoTimeUpdate);
-    player.on("pause", handleVideoPause);
-
-    return () => {
-      player.off("timeupdate", handleVideoTimeUpdate);
-      player.off("pause", handleVideoPause);
-    };
-  }, [videoUrl]);
-
-  useEffect(() => {
-    const player = playerRef.current as any;
-
-    if (!player) return;
-
     const handleVideoPlay = () => {
-      if (audioRef.current && selectedTrack === 1) {
+      if (audioRef.current) {
         audioRef.current.play();
       }
     };
 
+    const player = playerRef.current as any;
+
     player.on("play", handleVideoPlay);
+    player.on("seeked", handleVideoTimeUpdate);
+    player.on("pause", handleVideoPause);
 
     return () => {
       player.off("play", handleVideoPlay);
+      player.off("seeked", handleVideoTimeUpdate);
+      player.off("pause", handleVideoPause);
     };
-  }, [selectedTrack]);
+  }, [videoUrl]);
 
   const handleAudioTrackChange = (index) => {
     setSelectedTrack(index);
     if (index === 0) {
       audioRef.current.pause();
       audioRef.current.currentTime = 0;
+      audioRef.current.muted = true;
       playerRef.current.muted(false);
     } else {
       (audioRef.current as any).src = audioUrls[index - 1];
+      audioRef.current.currentTime = playerRef.current.currentTime();
+      audioRef.current.muted = false;
       audioRef.current.play();
       playerRef.current.muted(true);
     }
@@ -103,7 +96,7 @@ const VideoPage = () => {
             controls
           ></video>
         </div>
-        <audio ref={audioRef} style={{ display: "none" }}></audio>
+        <audio muted ref={audioRef} style={{ display: "none" }}></audio>
         <div className="mt-4">
           <label className="text-white font-bold">Audio track:</label>
           <div className="mt-2 flex items-center space-x-4">
