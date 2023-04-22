@@ -49,17 +49,21 @@ const VideoPage = () => {
       }
     };
 
-    playerRef.current.on("timeupdate", handleVideoTimeUpdate);
-    playerRef.current.on("pause", handleVideoPause);
+    const player = playerRef.current as any;
+
+    player.on("timeupdate", handleVideoTimeUpdate);
+    player.on("pause", handleVideoPause);
 
     return () => {
-      playerRef.current.off("timeupdate", handleVideoTimeUpdate);
-      playerRef.current.off("pause", handleVideoPause);
+      player.off("timeupdate", handleVideoTimeUpdate);
+      player.off("pause", handleVideoPause);
     };
   }, [videoUrl]);
 
   useEffect(() => {
-    if (!playerRef.current) return;
+    const player = playerRef.current as any;
+
+    if (!player) return;
 
     const handleVideoPlay = () => {
       if (audioRef.current && selectedTrack === 1) {
@@ -67,10 +71,10 @@ const VideoPage = () => {
       }
     };
 
-    playerRef.current.on("play", handleVideoPlay);
+    player.on("play", handleVideoPlay);
 
     return () => {
-      playerRef.current.off("play", handleVideoPlay);
+      player.off("play", handleVideoPlay);
     };
   }, [selectedTrack]);
 
@@ -81,7 +85,7 @@ const VideoPage = () => {
       audioRef.current.currentTime = 0;
       playerRef.current.muted(false);
     } else {
-      audioRef.current.src = audioUrl;
+      (audioRef.current as any).src = audioUrl;
       audioRef.current.play();
       playerRef.current.muted(true);
     }
