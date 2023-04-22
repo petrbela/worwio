@@ -9,12 +9,25 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "autoprefixer": "^10.4.14",
     "next": "13.3.0",
+    "postcss": "^8.4.23",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-bootstrap": "^2.7.4",
+    "react-dom": "18.2.0",
+    "react-router-dom": "^6.10.0",
+    "tailwindcss": "^3.3.1",
+    "video-react": "^0.16.0",
+    "video.js": "^8.0.4",
+    "videojs-audio-tracks": "^0.2.1",
+    "videojs-youtube": "^3.0.0"
   },
   "devDependencies": {
+    "@types/node": "^18.15.13",
+    "@types/react": "^18.0.38",
+    "@types/video-react": "^0.15.1",
     "eslint": "8.38.0",
-    "eslint-config-next": "13.3.0"
+    "eslint-config-next": "13.3.0",
+    "typescript": "^5.0.4"
   }
 }
