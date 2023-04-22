@@ -13,7 +13,7 @@ const VideoPage = () => {
 
   const videoUrl =
     router.query.videoUrl || "https://www.youtube.com/watch?v=BU1tX88qUBA";
-  const audioUrl = router.query.audioUrl || "/output.wav";
+  const audioUrls = ["/output_en.wav", "/output_de.wav", "/output_es.wav"];
 
   useEffect(() => {
     if (videoUrl.includes("youtube.com")) {
@@ -85,7 +85,7 @@ const VideoPage = () => {
       audioRef.current.currentTime = 0;
       playerRef.current.muted(false);
     } else {
-      (audioRef.current as any).src = audioUrl;
+      (audioRef.current as any).src = audioUrls[index - 1];
       audioRef.current.play();
       playerRef.current.muted(true);
     }
@@ -97,7 +97,6 @@ const VideoPage = () => {
         <div data-vjs-player>
           <video
             ref={videoRef}
-            muted
             className="video-js vjs-big-play-centered"
             width="640"
             height="360"
@@ -108,7 +107,7 @@ const VideoPage = () => {
         <div className="mt-4">
           <label className="text-white font-bold">Audio track:</label>
           <div className="mt-2 flex items-center space-x-4">
-            {["Czech", "English"].map((label, index) => (
+            {["Czech", "English", "German", "Spanish"].map((label, index) => (
               <div
                 key={index}
                 className={`rounded-full ${
